@@ -1,0 +1,75 @@
+#include <iostream>
+#include <vector>
+#include <cstdlib>
+#include <ctime>
+
+std::string rock = R"(
+    _______
+---'   ____)
+      (_____)
+      (_____)
+      (____)
+---.__(___)
+)";
+
+std::string paper = R"(
+    _______
+---'   ____)____
+          ______)
+          _______)
+         _______)
+---.__________)
+)";
+
+std::string scissors = R"(
+    _______
+---'   ____)____
+          ______)
+       __________)
+      (____)
+---.__(___)
+)";
+
+void playGame() {
+    std::vector<std::string> options = {rock, paper, scissors};
+
+    while (true) {
+        std::cout << "Welcome to Rock, Paper, Scissors" << std::endl;
+        std::cout << "What do you choose? Type 0 for rock, 1 for paper, 2 for scissors. Enter -1 to quit." << std::endl;
+
+        int userChoice;
+        std::cin >> userChoice;
+
+        if (userChoice == -1) {
+            std::cout << "Thank you for playing!" << std::endl;
+            break;
+        }
+
+        if (userChoice < 0 || userChoice > 2) {
+            std::cout << "You typed an invalid number. Please choose 0, 1, or 2." << std::endl;
+            continue;
+        }
+
+        std::srand(static_cast<unsigned int>(std::time(nullptr)));
+        int compChoice = std::rand() % 3;
+
+        std::cout << "Computer chose:" << std::endl;
+        std::cout << options[compChoice] << std::endl;
+
+        std::cout << "You chose:" << std::endl;
+        std::cout << options[userChoice] << std::endl;
+
+        if (compChoice == userChoice) {
+            std::cout << "It's a tie!" << std::endl;
+        } else if ((compChoice == 0 && userChoice == 1) || (compChoice == 1 && userChoice == 2) || (compChoice == 2 && userChoice == 0)) {
+            std::cout << "You win!" << std::endl;
+        } else {
+            std::cout << "Computer wins!" << std::endl;
+        }
+    }
+}
+
+int main() {
+    playGame();
+    return 0;
+}
